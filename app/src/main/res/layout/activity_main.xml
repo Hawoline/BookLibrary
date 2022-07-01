@@ -6,6 +6,5 @@
     android:orientation="vertical"
     tools:context=".presentation.view.MainActivity">
 
-    <include
-        layout="@layout/fragmentcontainer_first_page" />
+    <include layout="@layout/fragmentcontainer_pages" />
 </FrameLayout>
