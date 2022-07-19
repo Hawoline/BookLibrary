@@ -4,4 +4,6 @@
     <string name="read">Read</string>
     <string name="unread">Unread</string>
     <string name="all">All</string>
+    <string name="add_book">Add book</string>
+    <string name="book_cover">Book cover</string>
 </resources>
