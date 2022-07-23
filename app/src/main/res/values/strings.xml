@@ -6,4 +6,7 @@
     <string name="all">All</string>
     <string name="add_book">Add book</string>
     <string name="book_cover">Book cover</string>
+    <string name="app_label">app labels</string>
+    <string name="search_hint">find book</string>
+    <string name="action_search">action_search</string>
 </resources>
