@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
-import com.example.firebasefirestorelibrary.presentation.model.Book;
+import com.example.firebasefirestorelibrary.domain.model.Book;
 import org.jetbrains.annotations.NotNull;
 
 public class MainFragment extends Fragment implements MainView {
@@ -36,7 +36,7 @@ public class MainFragment extends Fragment implements MainView {
         mBookRecyclerView = baseView.findViewById(R.id.main_recyclerview_book_list);
         Book[] books = new Book[40];
         for (int i = 0; i < books.length; i++) {
-            books[i] = new Book("kfjnjvdf", "fknvkjdfv", 104, "13.08.2001");
+            books[i] = new Book("kfjnjvdf", "fknvkjdfv", 104, "13.08.2001", "");
         }
         mBookRecyclerView.setAdapter(new BookListAdapter(books));
 
