@@ -1,4 +1,4 @@
-package com.example.firebasefirestorelibrary.domain.model;
+package com.example.firebasefirestorelibrary.domain;
 
 import java.util.ArrayList;
 

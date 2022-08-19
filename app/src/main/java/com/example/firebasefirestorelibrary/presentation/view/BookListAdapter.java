@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
-import com.example.firebasefirestorelibrary.domain.model.Book;
+import com.example.firebasefirestorelibrary.domain.Book;
 import org.jetbrains.annotations.NotNull;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {

@@ -9,4 +9,6 @@
     <string name="app_label">app labels</string>
     <string name="search_hint">find book</string>
     <string name="action_search">action_search</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="show">Show</string>
 </resources>

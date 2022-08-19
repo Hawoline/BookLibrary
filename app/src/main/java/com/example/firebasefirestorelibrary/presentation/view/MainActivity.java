@@ -4,13 +4,22 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.widget.SearchView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.firebasefirestorelibrary.R;
+import com.example.firebasefirestorelibrary.data.net.RestApi;
+import com.example.firebasefirestorelibrary.data.net.RestApiImpl;
+import com.example.firebasefirestorelibrary.util.Constants;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -27,8 +36,25 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-        }
 
+            Callable<String> callable = new Callable<String>() {
+                @Override
+                public String call() throws Exception {
+                    RestApi restApi = new RestApiImpl(MainActivity.this);
+                    return restApi.searchBooks(query);
+                }
+            };
+
+            FutureTask<String> future = new FutureTask<>(callable);
+            new Thread(future).start();
+            try {
+                Log.d(Constants.LOG_TAG, future.get());
+            } catch (ExecutionException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                Toast.makeText(MainActivity.this, "query execution is interrupted", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     @Override

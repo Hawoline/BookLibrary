@@ -1,8 +1,5 @@
 package com.example.firebasefirestorelibrary.presentation.presenter;
 
-import com.example.firebasefirestorelibrary.presentation.view.MainView;
+public interface MainPresenter extends BasePresenter {
 
-public interface MainPresenter {
-    void attachMainView(MainView mainView);
-    void detachMainView();
 }
