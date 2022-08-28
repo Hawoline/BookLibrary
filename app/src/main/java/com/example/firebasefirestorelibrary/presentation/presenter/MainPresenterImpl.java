@@ -1,12 +1,9 @@
 package com.example.firebasefirestorelibrary.presentation.presenter;
 
-import android.app.SearchManager;
 import android.content.Intent;
-import android.widget.Toast;
 import com.example.firebasefirestorelibrary.data.net.RestApi;
 import com.example.firebasefirestorelibrary.data.net.RestApiImpl;
 import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
-import com.example.firebasefirestorelibrary.presentation.view.BookListAdapter;
 import com.example.firebasefirestorelibrary.presentation.view.MainView;
 import com.example.firebasefirestorelibrary.util.JsonParser;
 
@@ -47,6 +44,11 @@ public class MainPresenterImpl implements MainPresenter {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             e.printStackTrace();
+            mMainView.showResultIsFailedToast();
+        }
+
+        if (bookShortInfoModels.length < 1) {
+            mMainView.showResultIsFailedToast();
         }
         return bookShortInfoModels;
     }

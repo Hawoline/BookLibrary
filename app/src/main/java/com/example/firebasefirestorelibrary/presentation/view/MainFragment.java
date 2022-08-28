@@ -4,8 +4,6 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -13,22 +11,12 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
-import com.example.firebasefirestorelibrary.data.net.RestApi;
-import com.example.firebasefirestorelibrary.data.net.RestApiImpl;
-import com.example.firebasefirestorelibrary.domain.Book;
-import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
 import com.example.firebasefirestorelibrary.presentation.presenter.MainPresenter;
 import com.example.firebasefirestorelibrary.presentation.presenter.MainPresenterImpl;
-import com.example.firebasefirestorelibrary.util.JsonParser;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 public class MainFragment extends Fragment implements MainView {
     private RecyclerView mBookRecyclerView;
@@ -88,5 +76,10 @@ public class MainFragment extends Fragment implements MainView {
     @Override
     public Context getContext() {
         return requireActivity().getApplicationContext();
+    }
+
+    @Override
+    public void showResultIsFailedToast() {
+        Toast.makeText(getContext(), R.string.search_result_is_null, Toast.LENGTH_SHORT).show();
     }
 }
