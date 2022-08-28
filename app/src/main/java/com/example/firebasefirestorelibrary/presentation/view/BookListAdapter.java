@@ -9,12 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
 import com.example.firebasefirestorelibrary.domain.Book;
+import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
 import org.jetbrains.annotations.NotNull;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
-    private Book[] mBooks;
+    private BookShortInfoModel[] mBooks;
 
-    public BookListAdapter(Book[] books) {
+    public BookListAdapter(BookShortInfoModel[] books) {
         mBooks = books;
     }
 
@@ -31,7 +32,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
         holder.mTitleTextView.setText(mBooks[position].getTitle());
         holder.mAuthorTextView.setText(mBooks[position].getAuthor());
         holder.mLengthTextView.setText(String.valueOf(mBooks[position].getLength()));
-        holder.mReleasedDateTextView.setText(mBooks[position].getReleasedDate());
+        holder.mReleasedDateTextView.setText(mBooks[position].getReleaseDate());
     }
 
     @Override
