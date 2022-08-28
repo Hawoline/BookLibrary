@@ -80,6 +80,6 @@ public class MainFragment extends Fragment implements MainView {
 
     @Override
     public void showResultIsFailedToast() {
-        Toast.makeText(getContext(), R.string.search_result_is_null, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.search_result_is_empty, Toast.LENGTH_SHORT).show();
     }
 }
