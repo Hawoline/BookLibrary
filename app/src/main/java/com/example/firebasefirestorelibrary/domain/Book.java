@@ -3,19 +3,18 @@ package com.example.firebasefirestorelibrary.domain;
 public class Book {
     private final String mTitle;
     private final String mAuthor;
-    private int mLength;
-    private String mReleasedDate;
+    private String mReleaseDate;
+    private String[] mGenres;
     private String mDescription;
-
     public Book(String title, String author) {
         this.mTitle = title;
         this.mAuthor = author;
     }
 
-    public Book(String title, String author, int length, String releasedDate, String description) {
+    public Book(String title, String author, String releaseDate, String[] genres, String description) {
         this(title, author);
-        this.mLength = length;
-        this.mReleasedDate = releasedDate;
+        this.mReleaseDate = releaseDate;
+        this.mGenres = genres;
         this.mDescription = description;
     }
 
@@ -27,19 +26,29 @@ public class Book {
         return mAuthor;
     }
 
-    public int getLength() {
-        return mLength;
+    public String getReleaseDate() {
+        return mReleaseDate;
     }
 
-    public void setLength(int length) {
-        this.mLength = length;
+    public void setReleaseDate(String releaseDate) {
+        if (mReleaseDate == null) {
+            mReleaseDate = releaseDate;
+        }
     }
 
-    public String getReleasedDate() {
-        return mReleasedDate;
+    public String[] getGenres() {
+        return mGenres;
     }
 
-    public void setReleasedDate(String releasedDate) {
-        this.mReleasedDate = releasedDate;
+    public void setGenres(String[] genres) {
+        mGenres = genres;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 }

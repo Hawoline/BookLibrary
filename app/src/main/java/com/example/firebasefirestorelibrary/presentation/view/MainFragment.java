@@ -46,7 +46,6 @@ public class MainFragment extends Fragment implements MainView {
         Intent intent = requireActivity().getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             mBookRecyclerView.setAdapter(new BookListAdapter(mMainPresenter.searchBookShortInfo(
-                    intent,
                     intent.getStringExtra(SearchManager.QUERY)))
             );
         }

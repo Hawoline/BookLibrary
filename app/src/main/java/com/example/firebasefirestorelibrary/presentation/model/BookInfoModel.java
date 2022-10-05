@@ -1,16 +1,18 @@
 package com.example.firebasefirestorelibrary.presentation.model;
 
-public class BookShortInfoModel {
+public class BookInfoModel {
     private String mTitle;
     private String mAuthor;
     private String mReleaseDate;
-    private int mLength;
+    private String[] mGenres;
+    private String mDescription;
 
-    public BookShortInfoModel(String title, String author, String releaseDate, int length) {
+    public BookInfoModel(String title, String author, String releaseDate, String[] genres, String description) {
         mTitle = title;
         mAuthor = author;
         mReleaseDate = releaseDate;
-        mLength = length;
+        mGenres = genres;
+        mDescription = description;
     }
 
     public String getTitle() {
@@ -37,11 +39,19 @@ public class BookShortInfoModel {
         mReleaseDate = releaseDate;
     }
 
-    public int getLength() {
-        return mLength;
+    public String[] getGenres() {
+        return mGenres;
     }
 
-    public void setLength(int length) {
-        mLength = length;
+    public void setGenres(String[] genres) {
+        mGenres = genres;
+    }
+
+    public String getDescription() {
+        return mDescription;
+    }
+
+    public void setDescription(String description) {
+        mDescription = description;
     }
 }

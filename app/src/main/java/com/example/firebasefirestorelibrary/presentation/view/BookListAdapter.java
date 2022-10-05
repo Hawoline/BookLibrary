@@ -8,14 +8,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
-import com.example.firebasefirestorelibrary.domain.Book;
-import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
+import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import org.jetbrains.annotations.NotNull;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
-    private BookShortInfoModel[] mBooks;
+    private BookInfoModel[] mBooks;
 
-    public BookListAdapter(BookShortInfoModel[] books) {
+    public BookListAdapter(BookInfoModel[] books) {
         mBooks = books;
     }
 
@@ -29,10 +28,10 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull BookViewHolder holder, int position) {
-        holder.mTitleTextView.setText(mBooks[position].getTitle());
-        holder.mAuthorTextView.setText(mBooks[position].getAuthor());
-        holder.mLengthTextView.setText(String.valueOf(mBooks[position].getLength()));
-        holder.mReleasedDateTextView.setText(mBooks[position].getReleaseDate());
+        BookInfoModel currentBookShortInfoModel = mBooks[position];
+        holder.mTitleTextView.setText(currentBookShortInfoModel.getTitle());
+        holder.mAuthorTextView.setText(currentBookShortInfoModel.getAuthor());
+        holder.mReleasedDateTextView.setText(currentBookShortInfoModel.getReleaseDate());
     }
 
     @Override
@@ -43,7 +42,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
     public static class BookViewHolder extends RecyclerView.ViewHolder {
         private TextView mTitleTextView;
         private TextView mAuthorTextView;
-        private TextView mLengthTextView;
         private TextView mReleasedDateTextView;
         private ImageView mCoverImageView;
 
@@ -52,7 +50,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
             mTitleTextView = itemView.findViewById(R.id.main_textview_book_title);
             mAuthorTextView = itemView.findViewById(R.id.main_textview_book_author);
-            mLengthTextView = itemView.findViewById(R.id.main_textview_length);
             mReleasedDateTextView = itemView.findViewById(R.id.main_textview_released_date);
             mCoverImageView = itemView.findViewById(R.id.main_imageview_book_cover);
         }

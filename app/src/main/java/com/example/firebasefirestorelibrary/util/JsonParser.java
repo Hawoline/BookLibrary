@@ -1,18 +1,18 @@
 package com.example.firebasefirestorelibrary.util;
 
-import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
+import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class JsonParser {
-    public static BookShortInfoModel[] parseBookShortInfoModels(String query) {
+    public static BookInfoModel[] parseBookShortInfoModels(String query) {
         JSONObject searchJsonObject;
-        BookShortInfoModel[] bookShortInfoModels;
+        BookInfoModel[] bookShortInfoModels;
         try {
             searchJsonObject = new JSONObject(query);
             int resultCount = searchJsonObject.getInt("resultCount");
-            bookShortInfoModels = new BookShortInfoModel[resultCount];
+            bookShortInfoModels = new BookInfoModel[resultCount];
             JSONArray results = searchJsonObject.getJSONArray("results");
             for (int result = 0; result < results.length(); result++) {
                 JSONObject resultJsonObject = results.getJSONObject(result);
@@ -26,14 +26,20 @@ public class JsonParser {
         return bookShortInfoModels;
     }
 
-    private static BookShortInfoModel parseBookShortInfoModel(JSONObject bookInfoJsonObject) {
-        BookShortInfoModel bookShortInfoModel;
+    private static BookInfoModel parseBookShortInfoModel(JSONObject bookInfoJsonObject) {
+        BookInfoModel bookShortInfoModel;
         try {
-            bookShortInfoModel = new BookShortInfoModel(
+            JSONArray bookGenresJsonArray = bookInfoJsonObject.getJSONArray("genres");
+            String[] genres = new String[bookGenresJsonArray.length()];
+            for (int bookGenre = 0; bookGenre < bookGenresJsonArray.length(); bookGenre++) {
+                genres[bookGenre] = bookGenresJsonArray.getString(bookGenre);
+            }
+            bookShortInfoModel = new BookInfoModel(
                     bookInfoJsonObject.getString("trackName"),
                     bookInfoJsonObject.getString("artistName"),
                     bookInfoJsonObject.getString("releaseDate"),
-                    0
+                    genres,
+                    bookInfoJsonObject.getString("description")
             );
         } catch (JSONException e) {
             throw new RuntimeException(e);

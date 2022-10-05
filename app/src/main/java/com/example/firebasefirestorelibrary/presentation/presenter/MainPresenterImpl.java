@@ -1,9 +1,8 @@
 package com.example.firebasefirestorelibrary.presentation.presenter;
 
-import android.content.Intent;
 import com.example.firebasefirestorelibrary.data.net.RestApi;
 import com.example.firebasefirestorelibrary.data.net.RestApiImpl;
-import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
+import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import com.example.firebasefirestorelibrary.presentation.view.MainView;
 import com.example.firebasefirestorelibrary.util.JsonParser;
 
@@ -25,15 +24,12 @@ public class MainPresenterImpl implements MainPresenter {
     }
 
     @Override
-    public BookShortInfoModel[] searchBookShortInfo(Intent intent, String searchQuery) {
-        BookShortInfoModel[] bookShortInfoModels = new BookShortInfoModel[] {};
+    public BookInfoModel[] searchBookShortInfo(String searchQuery) {
+        BookInfoModel[] bookShortInfoModels = new BookInfoModel[] {};
 
-        Callable<String> callable = new Callable<String>() {
-            @Override
-            public String call() {
-                RestApi restApi = new RestApiImpl(mMainView.getContext());
-                return restApi.searchBooks(searchQuery);
-            }
+        Callable<String> callable = () -> {
+            RestApi restApi = new RestApiImpl(mMainView.getContext());
+            return restApi.searchBooks(searchQuery);
         };
 
         FutureTask<String> future = new FutureTask<>(callable);

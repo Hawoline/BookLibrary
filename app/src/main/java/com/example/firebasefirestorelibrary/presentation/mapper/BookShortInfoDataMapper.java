@@ -1,23 +1,24 @@
 package com.example.firebasefirestorelibrary.presentation.mapper;
 
 import com.example.firebasefirestorelibrary.domain.Book;
-import com.example.firebasefirestorelibrary.presentation.model.BookShortInfoModel;
+import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 
 import java.util.ArrayList;
 
 public class BookShortInfoDataMapper {
 
-    public BookShortInfoModel transform(Book book) {
-        return new BookShortInfoModel(
+    public BookInfoModel transform(Book book) {
+        return new BookInfoModel(
                 book.getTitle(),
                 book.getAuthor(),
-                book.getReleasedDate(),
-                book.getLength()
+                book.getReleaseDate(),
+                book.getGenres(),
+                book.getDescription()
         );
     }
 
-    public ArrayList<BookShortInfoModel> transform(ArrayList<Book> books) {
-        ArrayList<BookShortInfoModel> bookShortInfoModels = new ArrayList<>();
+    public ArrayList<BookInfoModel> transform(ArrayList<Book> books) {
+        ArrayList<BookInfoModel> bookShortInfoModels = new ArrayList<>();
         for (Book book : books) {
             bookShortInfoModels.add(transform(book));
         }
