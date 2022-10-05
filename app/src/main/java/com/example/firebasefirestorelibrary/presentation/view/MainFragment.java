@@ -38,13 +38,17 @@ public class MainFragment extends Fragment implements MainView {
     }
 
     @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull @NotNull View view,
+                              @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initViews(view);
 
         Intent intent = requireActivity().getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            mBookRecyclerView.setAdapter(new BookListAdapter(mMainPresenter.searchBookShortInfo(intent, intent.getStringExtra(SearchManager.QUERY))));
+            mBookRecyclerView.setAdapter(new BookListAdapter(mMainPresenter.searchBookShortInfo(
+                    intent,
+                    intent.getStringExtra(SearchManager.QUERY)))
+            );
         }
     }
 
@@ -59,14 +63,11 @@ public class MainFragment extends Fragment implements MainView {
         mShowAdvancedOptionsButton = baseView.findViewById(R.id.booklistoptions_button_show_advanced_options);
         mBookmarksOptionsLayout = baseView.findViewById(R.id.booklistoptions_layout_bookmarks_options);
         mReadOptionsRadioGroup = baseView.findViewById(R.id.booklistoptions_group_read_option);
-        mShowAdvancedOptionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mBookmarksOptionsLayout.getVisibility() == View.GONE) {
-                    mBookmarksOptionsLayout.setVisibility(View.VISIBLE);
-                } else {
-                    mBookmarksOptionsLayout.setVisibility(View.GONE);
-                }
+        mShowAdvancedOptionsButton.setOnClickListener(view -> {
+            if (mBookmarksOptionsLayout.getVisibility() == View.GONE) {
+                mBookmarksOptionsLayout.setVisibility(View.VISIBLE);
+            } else {
+                mBookmarksOptionsLayout.setVisibility(View.GONE);
             }
         });
     }
