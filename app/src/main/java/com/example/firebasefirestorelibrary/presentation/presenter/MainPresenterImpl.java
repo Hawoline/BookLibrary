@@ -40,11 +40,11 @@ public class MainPresenterImpl implements MainPresenter {
             throw new RuntimeException(e);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            mMainView.showResultIsFailedToast();
+            mMainView.showFailedResultToast();
         }
 
         if (bookShortInfoModels.length < 1) {
-            mMainView.showResultIsFailedToast();
+            mMainView.showFailedResultToast();
         }
         return bookShortInfoModels;
     }

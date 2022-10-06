@@ -52,7 +52,7 @@ class ApiConnection implements Callable<String> {
     }
 
     @Override
-    public String call() throws Exception {
+    public String call() {
         return requestSyncCall();
     }
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
@@ -13,7 +14,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
     private BookInfoModel[] mBooks;
+    public interface OnBookClickListener {
+        void onBookItemClicked(BookInfoModel bookInfoModel);
+    }
 
+    private OnBookClickListener mOnBookClickListener;
     public BookListAdapter(BookInfoModel[] books) {
         mBooks = books;
     }
@@ -32,6 +37,12 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
         holder.mTitleTextView.setText(currentBookShortInfoModel.getTitle());
         holder.mAuthorTextView.setText(currentBookShortInfoModel.getAuthor());
         holder.mReleasedDateTextView.setText(currentBookShortInfoModel.getReleaseDate());
+
+        holder.itemView.setOnClickListener(v -> {
+            if (mOnBookClickListener != null) {
+                mOnBookClickListener.onBookItemClicked(currentBookShortInfoModel);
+            }
+        });
     }
 
     @Override
@@ -39,6 +50,9 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
         return mBooks.length;
     }
 
+    public void setOnBookClickListener(OnBookClickListener onBookClickListener) {
+        mOnBookClickListener = onBookClickListener;
+    }
     public static class BookViewHolder extends RecyclerView.ViewHolder {
         private TextView mTitleTextView;
         private TextView mAuthorTextView;
@@ -47,7 +61,6 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
 
         public BookViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
-
             mTitleTextView = itemView.findViewById(R.id.main_textview_book_title);
             mAuthorTextView = itemView.findViewById(R.id.main_textview_book_author);
             mReleasedDateTextView = itemView.findViewById(R.id.main_textview_released_date);

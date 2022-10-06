@@ -14,17 +14,23 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.firebasefirestorelibrary.R;
+import com.example.firebasefirestorelibrary.presentation.mapper.BookInfoBundleMapper;
+import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import com.example.firebasefirestorelibrary.presentation.presenter.MainPresenter;
 import com.example.firebasefirestorelibrary.presentation.presenter.MainPresenterImpl;
 import org.jetbrains.annotations.NotNull;
 
-public class MainFragment extends Fragment implements MainView {
+public class MainFragment extends Fragment implements MainView, BookListAdapter.OnBookClickListener {
     private RecyclerView mBookRecyclerView;
     private ImageButton mShowAdvancedOptionsButton;
     private LinearLayout mBookmarksOptionsLayout;
     private RadioGroup mReadOptionsRadioGroup;
 
     private MainPresenter mMainPresenter;
+
+    private BookListAdapter mBookListAdapter;
+
+    public static final String BUNDLE_KEY_BOOK_INFO = "BUNDLE_KEY_BOOK_INFO";
 
     public MainFragment() {
         super(R.layout.view_main);
@@ -45,9 +51,11 @@ public class MainFragment extends Fragment implements MainView {
 
         Intent intent = requireActivity().getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            mBookRecyclerView.setAdapter(new BookListAdapter(mMainPresenter.searchBookShortInfo(
-                    intent.getStringExtra(SearchManager.QUERY)))
+            mBookListAdapter = new BookListAdapter(
+                    mMainPresenter.searchBookShortInfo(intent.getStringExtra(SearchManager.QUERY))
             );
+            mBookListAdapter.setOnBookClickListener(this);
+            mBookRecyclerView.setAdapter(mBookListAdapter);
         }
     }
 
@@ -79,7 +87,17 @@ public class MainFragment extends Fragment implements MainView {
     }
 
     @Override
-    public void showResultIsFailedToast() {
+    public void showFailedResultToast() {
         Toast.makeText(getContext(), R.string.search_result_is_empty, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBookItemClicked(BookInfoModel bookInfoModel) {
+        Bundle bookInfoBundle = new Bundle();
+        bookInfoBundle.putBundle(BUNDLE_KEY_BOOK_INFO, BookInfoBundleMapper.toBundle(bookInfoModel));
+        getParentFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container_main, BookInfoFragment.class, bookInfoBundle)
+                .commit();
     }
 }
