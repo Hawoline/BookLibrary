@@ -37,7 +37,7 @@ public class JsonParser {
             bookShortInfoModel = new BookInfoModel(
                     bookInfoJsonObject.getString("trackName"),
                     bookInfoJsonObject.getString("artistName"),
-                    bookInfoJsonObject.getString("releaseDate"),
+                    SimpleDateFormatter.format(bookInfoJsonObject.getString("releaseDate")),
                     genres,
                     bookInfoJsonObject.getString("description")
             );
