@@ -24,14 +24,16 @@ public class BookInfoFragment extends Fragment implements BookInfoView {
     }
 
     @Override
-    public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void onViewCreated(
+            @NonNull @NotNull View view,
+            @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews(view);
+        findViews(view);
         showBookInfo(BookInfoBundleMapper.toBookInfo(requireArguments().getBundle(MainFragment.BUNDLE_KEY_BOOK_INFO)));
     }
 
     @Override
-    public void initViews(View baseView) {
+    public void findViews(View baseView) {
         mTitleTextView = baseView.findViewById(R.id.bookinfo_textview_title);
         mAuthorNameTextView = baseView.findViewById(R.id.bookinfo_textview_author_name);
         mGenresTextView = baseView.findViewById(R.id.bookinfo_textview_genres);
@@ -48,12 +50,7 @@ public class BookInfoFragment extends Fragment implements BookInfoView {
     public void showBookInfo(BookInfoModel bookInfoModel) {
         mTitleTextView.setText(bookInfoModel.getTitle());
         mAuthorNameTextView.setText(bookInfoModel.getAuthor());
-        StringBuilder appendedGenres = new StringBuilder();
-        for (String genre: bookInfoModel.getGenres()) {
-            appendedGenres.append(genre);
-            appendedGenres.append(" ");
-        }
-        mGenresTextView.setText(appendedGenres.toString());
+        mGenresTextView.setText(bookInfoModel.getGenres());
         mPublishedDateTextView.setText(bookInfoModel.getReleaseDate());
         mDescriptionTextView.setText(bookInfoModel.getDescription());
     }

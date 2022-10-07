@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 public interface BaseView {
-    void initViews(View baseView);
+    void findViews(View baseView);
 
     Context getContext();
 }

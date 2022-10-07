@@ -15,7 +15,7 @@ public class BookInfoBundleMapper {
         result.putString(BUNDLE_KEY_TITLE, bookInfoModel.getTitle());
         result.putString(BUNDLE_KEY_AUTHOR, bookInfoModel.getAuthor());
         result.putString(BUNDLE_KEY_PUBLISHED_DATE, bookInfoModel.getReleaseDate());
-        result.putStringArray(BUNDLE_KEY_GENRES, bookInfoModel.getGenres());
+        result.putString(BUNDLE_KEY_GENRES, bookInfoModel.getGenres());
         result.putString(BUNDLE_KEY_DESCRIPTION, bookInfoModel.getDescription());
 
         return result;
@@ -26,7 +26,7 @@ public class BookInfoBundleMapper {
                 bookInfoBundle.getString(BUNDLE_KEY_TITLE),
                 bookInfoBundle.getString(BUNDLE_KEY_AUTHOR),
                 bookInfoBundle.getString(BUNDLE_KEY_PUBLISHED_DATE),
-                bookInfoBundle.getStringArray(BUNDLE_KEY_GENRES),
+                bookInfoBundle.getString(BUNDLE_KEY_GENRES),
                 bookInfoBundle.getString(BUNDLE_KEY_DESCRIPTION)
         );
     }

@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -41,7 +42,12 @@ class ApiConnection implements Callable<String> {
                 .build();
 
         try (Response response = okHttpClient.newCall(request).execute()) {
-            this.response = response.body().string();
+            ResponseBody responseBody = response.body();
+            if (responseBody == null) {
+                throw new IOException("Response is null");
+            }
+
+            this.response = responseBody.string();
         } catch (IOException e) {
             e.printStackTrace();
         }

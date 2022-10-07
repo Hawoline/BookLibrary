@@ -4,10 +4,10 @@ public class BookInfoModel {
     private String mTitle;
     private String mAuthor;
     private String mReleaseDate;
-    private String[] mGenres;
+    private String mGenres;
     private String mDescription;
 
-    public BookInfoModel(String title, String author, String releaseDate, String[] genres, String description) {
+    public BookInfoModel(String title, String author, String releaseDate, String genres, String description) {
         mTitle = title;
         mAuthor = author;
         mReleaseDate = releaseDate;
@@ -39,11 +39,11 @@ public class BookInfoModel {
         mReleaseDate = releaseDate;
     }
 
-    public String[] getGenres() {
+    public String getGenres() {
         return mGenres;
     }
 
-    public void setGenres(String[] genres) {
+    public void setGenres(String genres) {
         mGenres = genres;
     }
 

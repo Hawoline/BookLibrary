@@ -6,13 +6,17 @@ import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import java.util.ArrayList;
 
 public class BookShortInfoDataMapper {
-
     public BookInfoModel transform(Book book) {
+        StringBuilder genresInOneString = new StringBuilder();
+        for (String genre: book.getGenres()) {
+            genresInOneString.append(genre);
+            genresInOneString.append(" ");
+        }
         return new BookInfoModel(
                 book.getTitle(),
                 book.getAuthor(),
                 book.getReleaseDate(),
-                book.getGenres(),
+                genresInOneString.toString(),
                 book.getDescription()
         );
     }

@@ -47,7 +47,7 @@ public class MainFragment extends Fragment implements MainView, BookListAdapter.
     public void onViewCreated(@NonNull @NotNull View view,
                               @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initViews(view);
+        findViews(view);
 
         Intent intent = requireActivity().getIntent();
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
@@ -65,7 +65,7 @@ public class MainFragment extends Fragment implements MainView, BookListAdapter.
         mMainPresenter.detachMainView();
     }
 
-    public void initViews(View baseView) {
+    public void findViews(View baseView) {
         mBookRecyclerView = baseView.findViewById(R.id.main_recyclerview_book_list);
         mShowAdvancedOptionsButton = baseView.findViewById(R.id.booklistoptions_button_show_advanced_options);
         mBookmarksOptionsLayout = baseView.findViewById(R.id.booklistoptions_layout_bookmarks_options);

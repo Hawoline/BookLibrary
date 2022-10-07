@@ -34,11 +34,16 @@ public class JsonParser {
             for (int bookGenre = 0; bookGenre < bookGenresJsonArray.length(); bookGenre++) {
                 genres[bookGenre] = bookGenresJsonArray.getString(bookGenre);
             }
+            StringBuilder genresInOneString = new StringBuilder();
+            for (String genre: genres) {
+                genresInOneString.append(genre);
+                genresInOneString.append(" ");
+            }
             bookShortInfoModel = new BookInfoModel(
                     bookInfoJsonObject.getString("trackName"),
                     bookInfoJsonObject.getString("artistName"),
                     SimpleDateFormatter.format(bookInfoJsonObject.getString("releaseDate")),
-                    genres,
+                    genresInOneString.toString(),
                     bookInfoJsonObject.getString("description")
             );
         } catch (JSONException e) {
