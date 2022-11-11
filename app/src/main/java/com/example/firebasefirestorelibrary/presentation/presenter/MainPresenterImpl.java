@@ -1,9 +1,11 @@
 package com.example.firebasefirestorelibrary.presentation.presenter;
 
+import android.util.Log;
 import com.example.firebasefirestorelibrary.data.net.RestApi;
 import com.example.firebasefirestorelibrary.data.net.RestApiImpl;
 import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import com.example.firebasefirestorelibrary.presentation.view.MainView;
+import com.example.firebasefirestorelibrary.util.Constants;
 import com.example.firebasefirestorelibrary.util.JsonParser;
 
 import java.util.concurrent.Callable;
@@ -26,20 +28,20 @@ public class MainPresenterImpl implements MainPresenter {
     @Override
     public BookInfoModel[] searchBookShortInfo(String searchQuery) {
         BookInfoModel[] bookShortInfoModels = new BookInfoModel[] {};
+        if (!mainViewExists()) {
+            Log.d(Constants.LOG_TAG, "MainView is null!");
+            return bookShortInfoModels;
+        }
 
         Callable<String> callable = () -> {
             RestApi restApi = new RestApiImpl(mMainView.getContext());
             return restApi.searchBooks(searchQuery);
         };
-
         FutureTask<String> future = new FutureTask<>(callable);
         new Thread(future).start();
         try {
             bookShortInfoModels = JsonParser.parseBookShortInfoModels(future.get());
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (ExecutionException | InterruptedException e) {
             mMainView.showFailedResultToast();
         }
 
@@ -47,5 +49,9 @@ public class MainPresenterImpl implements MainPresenter {
             mMainView.showFailedResultToast();
         }
         return bookShortInfoModels;
+    }
+
+    private boolean mainViewExists() {
+        return mMainView != null;
     }
 }

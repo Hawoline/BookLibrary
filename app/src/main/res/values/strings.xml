@@ -12,4 +12,6 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="show">Show</string>
     <string name="search_result_is_empty">Books not found</string>
+    <string name="search_book_hint">Search book</string>
+    <string name="search">Search</string>
 </resources>

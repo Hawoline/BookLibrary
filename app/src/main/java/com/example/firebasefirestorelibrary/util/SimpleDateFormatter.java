@@ -10,6 +10,7 @@ public class SimpleDateFormatter {
             return "Format error";
         }
 
-        return resultDate[2] + "/" + resultDate[1] + "/" + resultDate[0];
+        final String SEPARATOR = ".";
+        return resultDate[2] + SEPARATOR + resultDate[1] + SEPARATOR + resultDate[0];
     }
 }

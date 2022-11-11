@@ -1,14 +1,11 @@
 package com.example.firebasefirestorelibrary.presentation.view;
 
-import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -25,12 +22,14 @@ public class MainFragment extends Fragment implements MainView, BookListAdapter.
     private ImageButton mShowAdvancedOptionsButton;
     private LinearLayout mBookmarksOptionsLayout;
     private RadioGroup mReadOptionsRadioGroup;
+    private EditText mSearchBookEditText;
+    private Button mSearchBookButton;
+
+    public static final String BUNDLE_KEY_BOOK_INFO = "BUNDLE_KEY_BOOK_INFO";
 
     private MainPresenter mMainPresenter;
 
     private BookListAdapter mBookListAdapter;
-
-    public static final String BUNDLE_KEY_BOOK_INFO = "BUNDLE_KEY_BOOK_INFO";
 
     public MainFragment() {
         super(R.layout.view_main);
@@ -48,15 +47,12 @@ public class MainFragment extends Fragment implements MainView, BookListAdapter.
                               @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         findViews(view);
+    }
 
-        Intent intent = requireActivity().getIntent();
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            mBookListAdapter = new BookListAdapter(
-                    mMainPresenter.searchBookShortInfo(intent.getStringExtra(SearchManager.QUERY))
-            );
-            mBookListAdapter.setOnBookClickListener(this);
-            mBookRecyclerView.setAdapter(mBookListAdapter);
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMainPresenter.attachMainView(this);
     }
 
     @Override
@@ -77,8 +73,38 @@ public class MainFragment extends Fragment implements MainView, BookListAdapter.
                 mBookmarksOptionsLayout.setVisibility(View.GONE);
             }
         });
+        mSearchBookEditText = baseView.findViewById(R.id.search_edittext_search_text);
+        mSearchBookEditText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN &&
+                        keyCode == KeyEvent.KEYCODE_ENTER
+                ) {
+                    showSearchedBooks(mSearchBookEditText.getText().toString().trim());
+                    mSearchBookEditText.clearFocus();
+                    mSearchBookEditText.setCursorVisible(false);
+
+                    return true;
+                }
+                return false;
+            }
+        });
+        mSearchBookButton = baseView.findViewById(R.id.search_button_search);
+        mSearchBookButton.setOnClickListener(view -> {
+            showSearchedBooks(mSearchBookEditText.getText().toString().trim());
+        });
     }
 
+    private void showSearchedBooks(String query) {
+        BookInfoModel[] bookInfoModels = mMainPresenter.searchBookShortInfo(query);
+        if (mBookListAdapter == null) {
+            mBookListAdapter = new BookListAdapter(bookInfoModels);
+        } else {
+            mBookListAdapter.setBooks(bookInfoModels);
+        }
+        mBookListAdapter.setOnBookClickListener(this);
+        mBookRecyclerView.setAdapter(mBookListAdapter);
+    }
     @Nullable
     @org.jetbrains.annotations.Nullable
     @Override
@@ -98,6 +124,7 @@ public class MainFragment extends Fragment implements MainView, BookListAdapter.
         getParentFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container_main, BookInfoFragment.class, bookInfoBundle)
+                .addToBackStack(null)
                 .commit();
     }
 }

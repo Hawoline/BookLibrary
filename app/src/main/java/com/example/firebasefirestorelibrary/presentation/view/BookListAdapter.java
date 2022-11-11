@@ -13,6 +13,8 @@ import com.example.firebasefirestorelibrary.presentation.model.BookInfoModel;
 import org.jetbrains.annotations.NotNull;
 
 public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookViewHolder> {
+
+
     private BookInfoModel[] mBooks;
     public interface OnBookClickListener {
         void onBookItemClicked(BookInfoModel bookInfoModel);
@@ -49,7 +51,9 @@ public class BookListAdapter extends RecyclerView.Adapter<BookListAdapter.BookVi
     public int getItemCount() {
         return mBooks.length;
     }
-
+    public void setBooks(BookInfoModel[] books) {
+        mBooks = books;
+    }
     public void setOnBookClickListener(OnBookClickListener onBookClickListener) {
         mOnBookClickListener = onBookClickListener;
     }

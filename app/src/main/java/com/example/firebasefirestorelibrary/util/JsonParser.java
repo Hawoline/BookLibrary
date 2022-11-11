@@ -18,7 +18,6 @@ public class JsonParser {
                 JSONObject resultJsonObject = results.getJSONObject(result);
                 bookShortInfoModels[result] = parseBookShortInfoModel(resultJsonObject);
             }
-
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -47,7 +46,8 @@ public class JsonParser {
                     bookInfoJsonObject.getString("description")
             );
         } catch (JSONException e) {
-            throw new RuntimeException(e);
+            String error = "error";
+            bookShortInfoModel = new BookInfoModel(error, error, error, error, error);
         }
 
         return bookShortInfoModel;
